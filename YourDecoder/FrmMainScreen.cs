@@ -12,12 +12,11 @@ namespace YourDecoder
     public partial class FrmMainScreen : Form
     {
         const string HTML_OUTPUT = "output.html";
-        private DBConnectSQLite mLocalDB;
+        private MySettings settings = MySettings.Load();        
 
         public FrmMainScreen()
-        {
-            InitializeComponent();            
-            mLocalDB = new DBConnectSQLite();
+        {           
+            InitializeComponent();                        
         }
 
         public void SetUpControls()
@@ -44,21 +43,26 @@ namespace YourDecoder
 
         private string GetSetting(string settingName)
         {
-            string query = string.Format("SELECT * FROM tblsetting WHERE SettingName = '{0}'", settingName);
+            /*string query = string.Format("SELECT * FROM tblsetting WHERE SettingName = '{0}'", settingName);
             DataTable data = mLocalDB.SelectDataTable(query);
             if (data.Rows.Count > 0)
             {
                 return data.Rows[0]["SettingValue"] + "";
-            }
-            return "";
+            }*/
+            System.Reflection.FieldInfo prop = typeof(MySettings).GetField(settingName);
+            return (string)prop.GetValue(settings);
         }
 
         private void SaveSetting(string settingName, string value)
         {
-            Dictionary<string, string> dicDB = new Dictionary<string, string>();
+            /*Dictionary<string, string> dicDB = new Dictionary<string, string>();
             dicDB.Add("SettingName", settingName);
             dicDB.Add("SettingValue", value);
             mLocalDB.UpdateOrInsert("tblsetting", dicDB, "SettingName");
+            */
+            System.Reflection.FieldInfo prop = typeof(MySettings).GetField(settingName);
+            prop.SetValue(settings, value);
+            settings.Save();
         }
 
         private void FrmMainScreen_FormClosed(object sender, FormClosedEventArgs e)
@@ -196,6 +200,7 @@ namespace YourDecoder
             html = html.Replace("[1m[#2b7edbm", "");
             html = html.Replace("[#0080ffm", "");            
             html = html.Replace("[1m[#3695f3m", "");
+            //html = html.Replace("[#c40062m", "");
             html = html.Replace("[34m", "");
             html = html.Replace("", "");
             return html;
@@ -229,5 +234,13 @@ namespace YourDecoder
         {
             PopulateOwnerID();
         }
+    }
+
+    class MySettings : AppSettings<MySettings>
+    {
+        public string CurrentPath = "";
+        public string OwnerID = "";
+        public string PartnerID = "";
+        public string IsAutoPopulateID = "Yes";
     }
 }
