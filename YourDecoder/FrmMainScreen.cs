@@ -6,6 +6,8 @@ using System.Drawing;
 using System.IO;
 using System.Text;
 using System.Windows.Forms;
+using System.Diagnostics;
+using System.Threading;
 
 namespace YourDecoder
 {
@@ -204,9 +206,25 @@ namespace YourDecoder
             File.WriteAllText(HTML_OUTPUT, fullHTML, Encoding.Unicode);
             try
             {
-                System.Diagnostics.Process.Start(Application.StartupPath + "\\" + HTML_OUTPUT);
+                string fullOuputPath = Application.StartupPath + "\\" + HTML_OUTPUT;
+                StartInNewThread(fullOuputPath); 
+                //System.Diagnostics.Process.Start(Application.StartupPath + "\\" + HTML_OUTPUT);
+                //ProcessStartInfo sInfo = new ProcessStartInfo();
+                //sInfo.UseShellExecute = true;
+                //Process.Start(sInfo);
             }
             catch { }
+        }
+
+        static void StartWithPath(string urlPath)
+        {
+            Process.Start(urlPath);
+        }
+
+        static void StartInNewThread(string urlPath)
+        {
+            var t = new Thread(() => StartWithPath(urlPath));
+            t.Start();
         }
 
         private void listView1_MouseDoubleClick(object sender, MouseEventArgs e)
