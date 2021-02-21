@@ -33,16 +33,16 @@ namespace YourDecoder
             this.folderBrowserDialog1 = new System.Windows.Forms.FolderBrowserDialog();
             this.btnBrowserFolder = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.btnDecode = new System.Windows.Forms.Button();
             this.labelFolderPath = new System.Windows.Forms.Label();
             this.txtOwnerID = new System.Windows.Forms.TextBox();
             this.txtPartnerID = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.listView1 = new System.Windows.Forms.ListView();
-            this.btnDecode = new System.Windows.Forms.Button();
-            this.btnClose = new System.Windows.Forms.Button();
-            this.chkAutoPopulate = new System.Windows.Forms.CheckBox();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.btnClose = new System.Windows.Forms.Button();
+            this.chkAutoPopulate = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btnBrowserFolder
@@ -55,6 +55,17 @@ namespace YourDecoder
             this.toolTip1.SetToolTip(this.btnBrowserFolder, "Select the folder where your archive files (.dat) reside");
             this.btnBrowserFolder.UseVisualStyleBackColor = true;
             this.btnBrowserFolder.Click += new System.EventHandler(this.btnBrowserFolder_Click);
+            // 
+            // btnDecode
+            // 
+            this.btnDecode.Location = new System.Drawing.Point(23, 643);
+            this.btnDecode.Name = "btnDecode";
+            this.btnDecode.Size = new System.Drawing.Size(126, 44);
+            this.btnDecode.TabIndex = 6;
+            this.btnDecode.Text = "Decode";
+            this.toolTip1.SetToolTip(this.btnDecode, "Decode selected file");
+            this.btnDecode.UseVisualStyleBackColor = true;
+            this.btnDecode.Click += new System.EventHandler(this.btnDecode_Click);
             // 
             // labelFolderPath
             // 
@@ -72,6 +83,7 @@ namespace YourDecoder
             this.txtOwnerID.Size = new System.Drawing.Size(203, 29);
             this.txtOwnerID.TabIndex = 2;
             this.txtOwnerID.Text = "[Your YahooID]";
+            this.toolTip1.SetToolTip(this.txtOwnerID, "Please provide your Yahoo ID accurately");
             // 
             // txtPartnerID
             // 
@@ -80,6 +92,7 @@ namespace YourDecoder
             this.txtPartnerID.Size = new System.Drawing.Size(203, 29);
             this.txtPartnerID.TabIndex = 3;
             this.txtPartnerID.Text = "[Your Friend\'s YahooID]";
+            this.toolTip1.SetToolTip(this.txtPartnerID, "Please provide your friend\'s Yahoo ID");
             // 
             // label1
             // 
@@ -107,16 +120,9 @@ namespace YourDecoder
             this.listView1.SelectedIndexChanged += new System.EventHandler(this.listView1_SelectedIndexChanged);
             this.listView1.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.listView1_MouseDoubleClick);
             // 
-            // btnDecode
+            // columnHeader2
             // 
-            this.btnDecode.Location = new System.Drawing.Point(23, 643);
-            this.btnDecode.Name = "btnDecode";
-            this.btnDecode.Size = new System.Drawing.Size(126, 44);
-            this.btnDecode.TabIndex = 6;
-            this.btnDecode.Text = "Decode";
-            this.toolTip1.SetToolTip(this.btnDecode, "Decode selected file");
-            this.btnDecode.UseVisualStyleBackColor = true;
-            this.btnDecode.Click += new System.EventHandler(this.btnDecode_Click);
+            this.columnHeader2.Width = 1;
             // 
             // btnClose
             // 
@@ -133,15 +139,12 @@ namespace YourDecoder
             this.chkAutoPopulate.AutoSize = true;
             this.chkAutoPopulate.Location = new System.Drawing.Point(23, 600);
             this.chkAutoPopulate.Name = "chkAutoPopulate";
-            this.chkAutoPopulate.Size = new System.Drawing.Size(322, 29);
+            this.chkAutoPopulate.Size = new System.Drawing.Size(327, 29);
             this.chkAutoPopulate.TabIndex = 8;
-            this.chkAutoPopulate.Text = "Populate Yahoo ID from filename";
+            this.chkAutoPopulate.Text = "Populate Yahoo ID from file name";
+            this.toolTip1.SetToolTip(this.chkAutoPopulate, "Please check this box if you don\'t know what it does");
             this.chkAutoPopulate.UseVisualStyleBackColor = true;
             this.chkAutoPopulate.CheckedChanged += new System.EventHandler(this.chkAutoPopulate_CheckedChanged);
-            // 
-            // columnHeader2
-            // 
-            this.columnHeader2.Width = 1;
             // 
             // FrmMainScreen
             // 

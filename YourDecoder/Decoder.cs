@@ -298,11 +298,17 @@ namespace Yammy
 			try
 			{
 				strData = Encoding.UTF8.GetString(data);
+				strData = RemoveGibberish(strData);
 				MatchEvaluator matchEval = new MatchEvaluator(CleanDataMatchEval);
 				strData = Regex.Replace(strData, "<([^>]+)>", matchEval);
 			}
 			catch { }
 			return strData;
+		}
+
+		private string RemoveGibberish(string inputString)
+		{
+			return Regex.Replace(inputString, ".+<font", "<font");
 		}
 
 		private string CleanDataMatchEval(Match m)

@@ -28,8 +28,8 @@ namespace YourDecoder
                 folderBrowserDialog1.SelectedPath = defaultPath;
                 RefreshFileList();
             }            
-            txtOwnerID.Text = GetSetting("OwnerID");
-            txtPartnerID.Text = GetSetting("PartnerID");
+            txtOwnerID.Text = GetSetting("OwnerID") ?? "Your Yahoo ID";
+            txtPartnerID.Text = GetSetting("PartnerID") ?? "Your Friend's Yahoo ID";
             chkAutoPopulate.Checked = GetSetting("IsAutoPopulateID") == "Yes" ? true : false;
         }
 
@@ -194,23 +194,12 @@ namespace YourDecoder
             }
             return true;
         }
-
-        public string fixHTMLOutput(string html)
-        {            
-            html = html.Replace("[1m[#2b7edbm", "");
-            html = html.Replace("[#0080ffm", "");            
-            html = html.Replace("[1m[#3695f3m", "");
-            //html = html.Replace("[#c40062m", "");
-            html = html.Replace("[34m", "");
-            html = html.Replace("", "");
-            return html;
-        }
-
+       
         private void PopupDecodedPage(string fullPath)
         {
             Yammy.Decoder decoder = new Yammy.Decoder(fullPath, txtOwnerID.Text, txtPartnerID.Text);
             string fullHTML = decoder.Decode(false, false, null);
-            fullHTML = fixHTMLOutput(fullHTML);
+            //Add CSS file
             fullHTML = "<link rel=\"stylesheet\" type=\"text/css\" href=\"print.css\">" + fullHTML;
             File.WriteAllText(HTML_OUTPUT, fullHTML, Encoding.Unicode);
             try
@@ -233,6 +222,7 @@ namespace YourDecoder
         private void listView1_SelectedIndexChanged(object sender, EventArgs e)
         {
             PopulateOwnerID();
+            PopulatePartnerID();
         }
     }
 
